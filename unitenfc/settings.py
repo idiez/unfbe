@@ -102,7 +102,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'unitenfc.urls'
-
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'unitenfc.wsgi.application'
 
@@ -170,7 +169,7 @@ import os
 #    pass
 
 
-#DATABASES['default'] =  dj_database_url.config()
+DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
