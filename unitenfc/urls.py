@@ -10,6 +10,6 @@ urlpatterns = patterns('',
     # url(r'^unitenfc/', include('unitenfc.foo.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^objects/', include('objects.urls', namespace="objects")),
+    url(r'^objects/', include('objects.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
