@@ -13,5 +13,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
  #   url(r'^objects/', include('objects.urls', namespace="unitenfc")),
    	url(r'^objects/users/(?P<user_req>.+)/$', views.restore_view, name='restore_view'),
+   	url(r'^objects/nfcp/(?P<user_req>.+)/(?P<isReg>.+)/$', views.regpoint_view, name='regpoint_view'),
+
     url(r'^admin/', include(admin.site.urls)),
 )
