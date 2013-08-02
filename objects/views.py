@@ -3,19 +3,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from objects.models import UserInfo, NFCPoint
 from django.template import RequestContext
+from datetime import datetime
 
 def restore_view(request, user_req):
 	user_obj = get_object_or_404(UserInfo, user_id=user_req)
 	#user_obj = UserInfo.objects.get(user_id=user_req)
 	result = simplejson.dumps(UserInfo.objects.all().filter(user_id=user_req).values('user_name','user_pic_uri')[0])[:-1]+', "registered":['
 
-	registered = user_obj.nfcpoint_set.filter(registered=True).values('name','posId','date')	
+	registered = user_obj.nfcpoint_set.filter(registered=True).order_by('when').values('name','posId','date')	
 	for reg in registered:
 		result = result+simplejson.dumps(reg)+", "
 	result= result.replace('user_pic_uri', 'pic_uri')
 	result = result[:-2]+'], "visited":['
 
-	visited = user_obj.nfcpoint_set.filter(registered=False).values('name','posId','date')
+	visited = user_obj.nfcpoint_set.filter(registered=False).order_by('when').values('name','posId','date')
 	for vis in visited:
 		result = result+simplejson.dumps(vis)+", "
 	result = result[:-2]+'], "friends":['
@@ -37,7 +38,9 @@ def regpoint_view(request, user_req, isReg):
 	user_obj.nfcpoint_set.create(name = data['name'],
 								posId = data['posId'],
 								date = data['date'],
-								registered = reg)
+								registered = reg,
+								wall = data['wall'],
+								when = datetime.now())
 	return HttpResponse('OK') 
 	#nfcp = NFCPoint(name=request.POST['name'],
 	#				posId=request.POST['posId'],

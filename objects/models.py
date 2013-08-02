@@ -33,8 +33,23 @@ class NFCPoint(models.Model):
 	address = models.CharField(max_length=50, blank = True)
 	registered = models.BooleanField()
 	belongsTo = models.ForeignKey(UserInfo)
-	# identificador 
-	# link a tablon
+	wall = models.CharField(max_length=50)
+	when = models.DateTimeField('date registered')
 
+class Wall(models.Model):
+	wall_id = models.CharField(max_length=50)
+	wall_pos_type = models.CharField(max_length=50)
+	wall_title = models.CharField(max_length=50)
+	wall_description = models.CharField(max_length=50)
+	wall_last_seen = models.CharField(max_length=50, blank = True)
 
+class Entry(models.Model):
+	wall = models.ForeignKey(Wall)
+	time_stamp = models.DateTimeField('date registered')
+	message = models.CharField(max_length=140)  #tweet length!
+
+class Rating(models.Model):
+	wall = models.ForeignKey(Wall)
+	user_id = models.CharField(max_length=50)
+	value = models.IntegerField(blank=True)
 
