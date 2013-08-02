@@ -12,8 +12,11 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
  #   url(r'^objects/', include('objects.urls', namespace="unitenfc")),
+   	url(r'^objects/users/name/(?P<user_req>.+)/$', views.nameupdate_view, name='nameupdate_view'),
+   	url(r'^objects/users/picuri/(?P<user_req>.+)/$', views.picuriupdate_view, name='picuriupdate_view'),
+   	url(r'^objects/users/friend/$', views.addfriend_view, name='addfriend_view'),
    	url(r'^objects/users/(?P<user_req>.+)/$', views.restore_view, name='restore_view'),
    	url(r'^objects/nfcp/(?P<user_req>.+)/(?P<isReg>.+)/$', views.regpoint_view, name='regpoint_view'),
-
+   	url(r'^objects/wall/$', views.regwall_view, name='regwall_view'), 
     url(r'^admin/', include(admin.site.urls)),
 )

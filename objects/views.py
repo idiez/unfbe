@@ -1,7 +1,7 @@
 from django.utils import simplejson
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from objects.models import UserInfo, NFCPoint
+from objects.models import UserInfo, NFCPoint, ContactRelationship, Wall
 from django.template import RequestContext
 from datetime import datetime
 
@@ -49,3 +49,37 @@ def regpoint_view(request, user_req, isReg):
 	#				belongsTo= user_req
 	#				)
  	#return HttpResponseRedirect('OK')
+
+def regwall_view(request):
+	data = simplejson.loads(request.raw_post_data)
+	wall = Wall(wall_id = data['wall_id'],
+				wall_pos_type = data['wall_pos_type'],
+				wall_title = data['wall_title'],
+				wall_description = data['wall_description']
+				)
+	return HttpResponse('OK') 
+
+def nameupdate_view(request, user_req):
+	user_obj = get_object_or_404(UserInfo, user_id = user_req)
+	data = simplejson.loads(request.raw_post_data)
+	user_obj.user_name = data['user_name']
+	user_obj.save()
+	return HttpResponse('OK') 
+
+def picuriupdate_view(request, user_req):
+	user_obj = get_object_or_404(UserInfo, user_id = user_req)
+	data = simplejson.loads(request.raw_post_data)
+	user_obj.user_pic_uri = data['pic_uri']
+	user_obj.save()
+	return HttpResponse('OK') 
+
+def addfriend_view(request):
+	data = simplejson.loads(request.raw_post_data)
+	from_user = UserInfo.objects.get(user_id = data['from_contact'])
+	to_user = UserInfo.objects.get(user_id = data['to_contact'])
+	ContactRelationship.objects.create(	from_contact=from_user,
+										to_contact=to_user)
+	ContactRelationship.objects.create(	from_contact=to_user,
+										to_contact=from_user)
+	return HttpResponse('OK') 
+

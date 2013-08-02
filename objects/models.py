@@ -37,6 +37,8 @@ class NFCPoint(models.Model):
 	when = models.DateTimeField('date registered')
 
 class Wall(models.Model):
+	def __unicode__(self):
+		return self.wall_title
 	wall_id = models.CharField(max_length=50)
 	wall_pos_type = models.CharField(max_length=50)
 	wall_title = models.CharField(max_length=50)
@@ -46,6 +48,7 @@ class Wall(models.Model):
 class Entry(models.Model):
 	wall = models.ForeignKey(Wall)
 	time_stamp = models.DateTimeField('date registered')
+#	author = models.CharField(max_length=50)
 	message = models.CharField(max_length=140)  #tweet length!
 
 class Rating(models.Model):
