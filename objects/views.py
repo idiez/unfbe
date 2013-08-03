@@ -73,7 +73,16 @@ def nameupdate_view(request, user_req):
 	data = simplejson.loads(request.raw_post_data)
 	user_obj.user_name = data['user_name']
 	user_obj.save()
-	return HttpResponse('OK') 
+	return HttpResponse('OK')
+
+def reguser_view(request):
+	data = simplejson.loads(request.raw_post_data)
+	user_obj = UserInfo(user_name=data['user_name'],
+						user_id=data['user_id'],
+						user_pic_uri=data['user_pic_uri']
+						)
+	user_obj.save()
+	return HttpResponse('OK')	 
 
 def picuriupdate_view(request, user_req):
 	user_obj = get_object_or_404(UserInfo, user_id = user_req)
