@@ -96,10 +96,10 @@ def getfb_view(request):
 	data = simplejson.loads(request.raw_post_data)
 	fb = Fblink.objects.filter(fb_id=data['fb_id'])
 	if not fb:
-		pass
-	else: 
 		fblink = Fblink(fb_id=data['fb_id'], user_id=data['user_id'])
 		fblink.save()
+	else: 
+		pass
 	fb = Fblink.objects.all()
 	result = '{'
 	for fbitem in fb:
