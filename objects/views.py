@@ -41,6 +41,7 @@ def regpoint_view(request, user_req, isReg):
 	user_obj = get_object_or_404(UserInfo, user_id = user_req)
 	if isReg == 'True':
 		reg = True 
+		regwall(request)
 	else:
 		reg = False
 	data = simplejson.loads(request.raw_post_data)
@@ -59,13 +60,14 @@ def regpoint_view(request, user_req, isReg):
 	#				)
  	#return HttpResponseRedirect('OK')
 
-def regwall_view(request):
+def regwall(request):
 	data = simplejson.loads(request.raw_post_data)
-	wall = Wall(wall_id = data['wall_id'],
-				wall_pos_type = data['wall_pos_type'],
-				wall_title = data['wall_title'],
+	wall = Wall(wall_id = data['wall'],
+				wall_pos_type = data['posId'],
+				wall_title = data['name'],
 				wall_description = data['wall_description']
 				)
+	wall.save()
 	return HttpResponse('OK') 
 
 def nameupdate_view(request, user_req):
