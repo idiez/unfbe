@@ -42,7 +42,7 @@ class Wall(models.Model):
 	wall_id = models.CharField(max_length=50)
 	wall_pos_type = models.CharField(max_length=50)
 	wall_title = models.CharField(max_length=50)
-	wall_description = models.CharField(max_length=50)
+	wall_description = models.CharField(max_length=140)
 	wall_last_seen = models.CharField(max_length=50, blank = True)
 
 class Entry(models.Model):
