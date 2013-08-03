@@ -1,7 +1,7 @@
 from django.utils import simplejson
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from objects.models import UserInfo, NFCPoint, ContactRelationship, Wall
+from objects.models import UserInfo, NFCPoint, ContactRelationship, Wall, Fblink
 from django.template import RequestContext
 from datetime import datetime
 
@@ -92,3 +92,20 @@ def addfriend_view(request):
 										to_contact=from_user)
 	return HttpResponse('OK') 
 
+def getfb_view(request):
+	data = simplejson.loads(request.raw_post_data)
+	fb = Fblink.objects.filter(fb_id=data['fb_id'])
+	if not fb:
+		pass
+	else: 
+		fblink = Fblink(fb_id=data['fb_id'], user_id=data['user_id'])
+		fblink.save()
+	fb = Fblink.objects.all()
+	result = '{'
+	for fbitem in fb:
+		result = result+fbitem.fb_id+'='+fbitem.user_id+', '
+	if len(fb) == 0:
+		result = result+'}'
+	else:	
+		result = result[:-2]+'}'
+	return HttpResponse(result)

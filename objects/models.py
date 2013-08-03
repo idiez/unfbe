@@ -56,3 +56,6 @@ class Rating(models.Model):
 	user_id = models.CharField(max_length=50)
 	value = models.IntegerField(blank=True)
 
+class Fblink(models.Model):
+	fb_id = models.CharField(max_length=50)
+	user_id = models.CharField(max_length=50)
