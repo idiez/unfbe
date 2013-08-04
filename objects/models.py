@@ -85,7 +85,11 @@ class Wall(models.Model):
 		else:
 			mean_rating = cummulative/total
 		result = result+str(mean_rating)+'", "my_rating":"'
-		my_rating=ratings.filter(user_id=user_req)[0].value
+		mine =ratings.filter(user_id=user_req)
+		if len(mine)== 0
+			my_rating = 0
+		else
+			my_rating = mine[0].value
 		result = result+str(my_rating)+'", "entry_list": ['
 		entries = self.entry_set.all().order_by('when').reverse().values('time_stamp','message','author_name')
 		for entry in entries:
