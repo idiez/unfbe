@@ -80,7 +80,10 @@ class Wall(models.Model):
 		cummulative = 0
 		for r in ratings:
 			cummulative = cummulative + r.value
-		mean_rating = cummulative/total
+		if total == 0:
+			mean_rating = 0
+		else:
+			mean_rating = cummulative/total
 		result = result+str(mean_rating)+'", "my_rating":"'
 		my_rating=ratings.filter(user_id=user_req)[0].value
 		result = result+str(my_rating)+'", "entry_list": ['
