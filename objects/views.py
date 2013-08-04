@@ -7,35 +7,7 @@ from datetime import datetime
 
 def restore_view(request, user_req):
 	user_obj = get_object_or_404(UserInfo, user_id=user_req)
-	#user_obj = UserInfo.objects.get(user_id=user_req)
-	result = simplejson.dumps(UserInfo.objects.all().filter(user_id=user_req).values('user_name','user_pic_uri')[0])[:-1]+', "registered":['
-
-	registered = user_obj.nfcpoint_set.filter(registered=True).order_by('when').reverse().values('name','posId','date','wall')	
-	for reg in registered:
-		result = result+simplejson.dumps(reg)+", "
-	result= result.replace('user_pic_uri', 'pic_uri')
-	if len(registered) == 0:
-		result = result+'], "visited":['
-	else:	
-		result = result[:-2]+'], "visited":['
-
-	visited = user_obj.nfcpoint_set.filter(registered=False).order_by('when').reverse().values('name','posId','date','wall')
-	for vis in visited:
-		result = result+simplejson.dumps(vis)+", "
-	if len(visited) == 0:
-		result = result+'], "friends":['
-	else:	
-		result = result[:-2]+'], "friends":['
-
-	friends = user_obj.friends.all().values('user_id','user_name','user_pic_uri') 
-	for fri in friends:
-		result = result+simplejson.dumps(fri).replace('user','friend')+", "
-	if len(friends) == 0:
-		result = result+']}'
-	else:	
-		result = result[:-2]+']}'
-
-	return HttpResponse(result, mimetype='application/json')	
+	return HttpResponse(user_obj.getJsonInfo() , mimetype='application/json')	
 
 def regpoint_view(request, user_req, isReg):
 	user_obj = get_object_or_404(UserInfo, user_id = user_req)
@@ -120,3 +92,7 @@ def getfb_view(request):
 	else:	
 		result = result[:-2]+'}'
 	return HttpResponse(result)
+
+def getwall_view(request, wall_req, user_req):
+	wall_obj = get_object_or_404(Wall, wall_id=wall_req)
+	return HttpResponse(wall_obj.getJsonInfo(user_req) , mimetype='application/json')
