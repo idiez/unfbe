@@ -91,7 +91,7 @@ class Wall(models.Model):
 		else:
 			my_rating = mine[0].value
 		result = result+str(my_rating)+'", "entry_list": ['
-		entries = self.entry_set.all().order_by('when').reverse().values('time_stamp','message','author_name')
+		entries = self.entry_set.all().order_by('when').reverse().values('time_stamp','message','author_name','author_pic_uri')
 		for entry in entries:
 			result = result+simplejson.dumps(entry)+", "
 		if len(entries) == 0:
