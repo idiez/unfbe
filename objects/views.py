@@ -96,3 +96,13 @@ def getfb_view(request):
 def getwall_view(request, wall_req, user_req):
 	wall_obj = get_object_or_404(Wall, wall_id=wall_req)
 	return HttpResponse(wall_obj.getJsonInfo(user_req) , mimetype='application/json')
+
+def addentry_view(request, wall_req):
+	wall_obj = get_object_or_404(Wall, wall_id=wall_req)
+	data = simplejson.loads(request.raw_post_data)
+	wall_obj.entry_set.create(	when = datetime.now(),
+								time_stamp = data['time_stamp'],
+								author_name = data['author_name'],
+								author_pic_uri = data['author_pic_uri'],
+								message = data['message'])
+	return HttpResponse('OK') 

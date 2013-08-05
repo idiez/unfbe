@@ -20,6 +20,7 @@ urlpatterns = patterns('',
    	url(r'^objects/users/(?P<user_req>.+)/$', views.restore_view, name='restore_view'),
    	url(r'^objects/nfcp/(?P<user_req>.+)/(?P<isReg>.+)/$', views.regpoint_view, name='regpoint_view'),
    	url(r'^objects/wall/(?P<wall_req>.+)/(?P<user_req>.+)/$', views.getwall_view, name='getwall_view'),
+    url(r'^objects/entry/(?P<wall_req>.+)/$', views.addentry_view, name='addentry_view'),
 #   url(r'^objects/wall/$', views.regwall_view, name='regwall_view'), 
     url(r'^admin/', include(admin.site.urls)),
 )

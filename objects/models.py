@@ -107,6 +107,7 @@ class Entry(models.Model):
 	time_stamp = models.CharField(max_length=50)
 	author_name = models.CharField(max_length=50, blank=True)
 	message = models.CharField(max_length=140)  #tweet length!
+	author_pic_uri = models.CharField(max_length=50, default = "dummy_4")
 
 class Rating(models.Model):
 	wall = models.ForeignKey(Wall)
