@@ -98,8 +98,8 @@ class Wall(models.Model):
 			result = result+'], "sudo": '
 		else:	
 			result = result[:-2]+'], "sudo": '
-		me = UserInfo.objects.get(user_id=user_req)
-		if self in me.nfcpoint_set.filter(registered=True):
+		me = UserInfo.objects.get(user_id = user_req)
+		if NFCPoint.objects.filter(wall = self.wall_id)[0] in me.nfcpoint_set.filter(registered = True):
 			result = result+'true}'
 		else:	
 			result = result+'false}'
