@@ -95,9 +95,14 @@ class Wall(models.Model):
 		for entry in entries:
 			result = result+simplejson.dumps(entry)+", "
 		if len(entries) == 0:
-			result = result+']}'
+			result = result+'], "sudo": '
 		else:	
-			result = result[:-2]+']}'
+			result = result[:-2]+'], "sudo": '
+		me = UserInfo.objects.get(user_id=user_req)
+		if self in me.nfcpoint_set.filter(registered=True):
+			result = result+'true}'
+		else:	
+			result = result+'false}'
 		return result
 
 

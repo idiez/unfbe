@@ -97,6 +97,21 @@ def getwall_view(request, wall_req, user_req):
 	wall_obj = get_object_or_404(Wall, wall_id=wall_req)
 	return HttpResponse(wall_obj.getJsonInfo(user_req) , mimetype='application/json')
 
+def ratewall_view(request):
+	data = simplejson.loads(request.raw_post_data)
+	wall_obj = get_object_or_404(Wall, wall_id = data['wall'])
+	wall_obj.rating_set.create(user_id = data['user_id'],value = data['value'])
+	ratings = wall_obj.rating_set.all()
+	total = len(ratings)
+	cummulative = 0
+	for r in ratings:
+		cummulative = cummulative + r.value
+	if total == 0:
+		mean_rating = 0
+	else:
+		mean_rating = cummulative/total
+	return HttpResponse(mean_rating)	
+
 def addentry_view(request, wall_req):
 	wall_obj = get_object_or_404(Wall, wall_id=wall_req)
 	data = simplejson.loads(request.raw_post_data)
@@ -105,4 +120,10 @@ def addentry_view(request, wall_req):
 								author_name = data['author_name'],
 								author_pic_uri = data['author_pic_uri'],
 								message = data['message'])
+	return HttpResponse('OK') 
+
+def deleteentry_view(request):
+	data = simplejson.loads(request.raw_post_data)
+	wall_obj = get_object_or_404(Wall, wall_id = data['wall'])
+	wall_obj.entry_set.filter(message = data['message']).delete()
 	return HttpResponse('OK') 
