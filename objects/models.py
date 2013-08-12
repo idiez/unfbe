@@ -83,7 +83,7 @@ class Wall(models.Model):
 		if total == 0:
 			mean_rating = 0
 		else:
-			mean_rating = cummulative/total
+			mean_rating = cummulative/float(total)
 		result = result+str(mean_rating)+'", "my_rating":"'
 		mine =ratings.filter(user_id=user_req)
 		if len(mine) == 0:
