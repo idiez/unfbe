@@ -37,8 +37,17 @@ def regwall(request):
 	wall = Wall(wall_id = data['wall'],
 				wall_pos_type = data['posId'],
 				wall_title = data['name'],
-				wall_description = data['wall_description']
+				wall_description = data['wall_description'],
+				wall_tag_content = data['wall_tag_content'],
+				wall_tag_private = data['wall_tag_private']
 				)
+	wall.save()
+	return HttpResponse('OK') 
+
+def wallupdateprivacy_view(request):
+	data = simplejson.loads(request.raw_post_data)
+	wall = Wall.objects.get(wall_id=wall = data['wall'])
+	wall.wall_tag_private = data['private']
 	wall.save()
 	return HttpResponse('OK') 
 

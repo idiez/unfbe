@@ -32,7 +32,7 @@ class NFCPointAdmin(admin.ModelAdmin):
 	list_display = ('name', 'when', 'date', 'posId','registered', 'wall')
 
 class WallAdmin(admin.ModelAdmin):
-	list_display = ('wall_id', 'wall_pos_type',	'wall_title', 'wall_description', 'wall_last_seen')
+	list_display = ('wall_id', 'wall_pos_type',	'wall_title', 'wall_description', 'wall_last_seen','wall_tag_content','wall_tag_private')
 	inlines = [EntryInline, RatingInline]
 
 class FblinkAdmin(admin.ModelAdmin):

@@ -73,8 +73,10 @@ class Wall(models.Model):
 	wall_title = models.CharField(max_length=50)
 	wall_description = models.CharField(max_length=140)
 	wall_last_seen = models.CharField(max_length=50, blank = True)
+	wall_tag_content = models.CharField(max_length=300, blank = True)
+	wall_tag_private = models.BooleanField()
 	def getJsonInfo(self, user_req):
-		result = simplejson.dumps(Wall.objects.all().filter(wall_id=self.wall_id).values('wall_pos_type','wall_title','wall_description')[0])[:-1]+', "mean_rating":"'
+		result = simplejson.dumps(Wall.objects.all().filter(wall_id=self.wall_id).values('wall_pos_type','wall_title','wall_description','wall_tag_content','wall_tag_private')[0])[:-1]+', "mean_rating":"'
 		ratings = self.rating_set.all()
 		total = len(ratings)
 		cummulative = 0
