@@ -3,6 +3,8 @@ from objects import views
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from settings import *
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -27,8 +29,3 @@ urlpatterns = patterns('',
     #url(r'^objects/wall/$', views.regwall_view, name='regwall_view'), 
     url(r'^admin/', include(admin.site.urls)),
 )
-
-if settings.DEBUG is False:   #if DEBUG is True it will be served automatically
-    urlpatterns += patterns('',
-            url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-    )

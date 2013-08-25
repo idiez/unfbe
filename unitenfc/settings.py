@@ -1,6 +1,6 @@
 # Django settings for unitenfc project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'objects',
     'south',
     # Uncomment the next line to enable the admin:
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
