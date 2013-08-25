@@ -187,7 +187,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-if settings.DEBUG is False:   #if DEBUG is True it will be served automatically
+if DEBUG is False:   #if DEBUG is True it will be served automatically
     urlpatterns += patterns('',
             url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     )
