@@ -29,3 +29,7 @@ urlpatterns = patterns('',
     #url(r'^objects/wall/$', views.regwall_view, name='regwall_view'), 
     url(r'^admin/', include(admin.site.urls)),
 )
+
+urlpatterns += patterns('',
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+)
