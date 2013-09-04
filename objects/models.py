@@ -10,7 +10,7 @@ class Test(models.Model):
 class UserInfo(models.Model):
 	def __unicode__(self):
 		return self.user_name
-	user_id = models.CharField(max_length=50)
+	user_id = models.CharField(max_length=50, unique=True)
 	user_name = models.CharField(max_length=50)
 	user_pic_uri = models.CharField(max_length=50, default = "dummy_4")
 	friends = models.ManyToManyField('self', symmetrical = False, blank = True, 
